@@ -2,55 +2,32 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    public Transform player1;  // Reference to Player 1
-    public Transform player2;  // Reference to Player 2
+    public Transform player1;
+    public Transform player2;
+    public float smoothTime = 0.3f;
+    public float minZoom = 5f;
+    public float maxZoom = 15f;
+    public float zoomLimiter = 50f;
 
-    public float smoothSpeed = 0.125f;  // How smoothly the camera follows
-    public float minDistance = 5f;      // Minimum distance before the camera zooms out
-    public float maxDistance = 15f;     // Maximum distance for zooming
-    public float zoomSpeed = 10f;       // Speed of zooming in and out
-    public float rotationSpeed = 5f;    // Speed of rotation around the z-axis
+    private Vector3 velocity;
 
-    private Camera mainCamera;
-
-    void Start()
+    void LateUpdate()
     {
-        mainCamera = Camera.main; // Get the main camera reference
+        if (player1 == null || player2 == null) return;
+
+        Vector3 centerPoint = GetCenterPoint();
+        Vector3 newPosition = centerPoint;
+        newPosition.z = transform.position.z;
+
+        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+
+        float distance = Vector2.Distance(player1.position, player2.position);
+        float newZoom = Mathf.Lerp(maxZoom, minZoom, distance / zoomLimiter);
+        Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, newZoom, Time.deltaTime);
     }
 
-    void FixedUpdate()
+    Vector3 GetCenterPoint()
     {
-        // Update the camera position, zoom, and rotation based on the players' positions
-        UpdateCameraPosition();
-        UpdateCameraRotation();
-    }
-
-    private void UpdateCameraPosition()
-    {
-        // Calculate the midpoint between both players
-        Vector3 midpoint = (player1.position + player2.position) / 2f;
-
-        // Keep the camera on the same z position since we're in 2D
-        midpoint.z = transform.position.z;
-
-        // Move the camera smoothly to the midpoint between players
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, midpoint, smoothSpeed);
-        transform.position = smoothedPosition;
-
-        // Adjust camera zoom based on the distance between the two players (x and y only)
-        float distanceBetweenPlayers = Vector2.Distance(player1.position, player2.position);
-        float newZoom = Mathf.Lerp(maxDistance, minDistance, distanceBetweenPlayers / maxDistance);
-        mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, newZoom, Time.deltaTime * zoomSpeed);
-    }
-
-    private void UpdateCameraRotation()
-    {
-        // Calculate the angle between the two players
-        Vector2 direction = player2.position - player1.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        // Smoothly rotate the camera to match the angle between the two players
-        Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        return (player1.position + player2.position) / 2f;
     }
 }
