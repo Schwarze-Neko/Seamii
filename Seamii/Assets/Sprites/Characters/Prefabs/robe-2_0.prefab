@@ -197,5 +197,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c55907f17227b9740a581d8ec7df9824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectedAbove: {fileID: 0}
-  connectedBelow: {fileID: 0}
