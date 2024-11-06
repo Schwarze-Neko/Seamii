@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - robe-2_1
+  - Orange_Trash
+  - Red_Trash
+  - Yellow_Trash
   layers:
   - Default
   - TransparentFX

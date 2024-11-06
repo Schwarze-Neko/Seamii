@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8859173938431482801}
   - component: {fileID: 2479248405740671705}
   - component: {fileID: 9000012659728973098}
+  - component: {fileID: 6143636534816626012}
   m_Layer: 0
   m_Name: robe-2_1
   m_TagString: robe-2_1
@@ -195,5 +196,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c55907f17227b9740a581d8ec7df9824, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6143636534816626012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5548885261659552361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792e1613dc086f14cb1eea9c2d6ea7cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
