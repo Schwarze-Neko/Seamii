@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI; // To access the UI components
 
@@ -12,6 +13,7 @@ public class FishController : MonoBehaviour
         {
             // Destroy the fish (make it disappear)
             Destroy(gameObject);
+            Debug.Log("Collide");
             
             // Check if there are still hearts left to disable
             if (heartIndex >= 0)
@@ -21,6 +23,7 @@ public class FishController : MonoBehaviour
                 heartIndex--; // Move to the next heart
             }
         }
+        Debug.Log("Collide");
     }
 }
 /*
