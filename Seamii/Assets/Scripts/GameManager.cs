@@ -1,14 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; // Include the TextMeshPro namespace
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    // Variables to track points and lives
     private int score;
-    public int lives = 3; // Set initial lives
-    public Image[] hearts; // Array of hearts to represent lives
+    public int lives = 3; // Initial lives
+    public Image[] hearts; // Heart UI for lives
+
+    public TextMeshProUGUI scoreText; // Reference to the TextMeshPro text field
 
     private void Awake()
     {
@@ -26,16 +28,24 @@ public class GameManager : MonoBehaviour
     private void InitializeGame()
     {
         score = 0;
+        UpdateScoreUI();
     }
 
-    // Method to update the score
     public void AddPoints(int points)
     {
         score += points;
         Debug.Log("Score: " + score);
+        UpdateScoreUI(); // Update the score UI
     }
 
-    // Method to handle losing a life
+    private void UpdateScoreUI()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: " + score;
+        }
+    }
+
     public void LoseLife()
     {
         if (lives > 0)
