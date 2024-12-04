@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // Include the TextMeshPro namespace
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class GameManager : MonoBehaviour
     private int score;
     public int lives = 3; // Initial lives
     public Image[] hearts; // Heart UI for lives
-
     public TextMeshProUGUI scoreText; // Reference to the TextMeshPro text field
+    public GameObject gameOverScreen; // Reference to the Game Over UI Canvas
 
     private void Awake()
     {
@@ -21,14 +22,17 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         InitializeGame();
     }
 
     private void InitializeGame()
     {
         score = 0;
+        lives = hearts.Length; // Reset lives to match the number of hearts
         UpdateScoreUI();
+        ResetHearts();
+        HideGameOverScreen();
     }
 
     public void AddPoints(int points)
@@ -51,8 +55,12 @@ public class GameManager : MonoBehaviour
         if (lives > 0)
         {
             lives--;
-            hearts[lives].enabled = false; // Update heart UI
+            if (hearts[lives] != null)
+            {
+                hearts[lives].enabled = false; // Disable the heart visually
+            }
         }
+
         if (lives == 0)
         {
             GameOver();
@@ -62,6 +70,48 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         Debug.Log("Game Over");
-        // Implement game-over logic here
+        if (gameOverScreen != null)
+        {
+            gameOverScreen.SetActive(true); // Show Game Over screen
+        }
+        Time.timeScale = 0f; // Pause the game
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f; // Resume the game
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        StartCoroutine(ResetAfterSceneLoad());
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quit Game");
+        Application.Quit();
+    }
+
+    private void ResetHearts()
+    {
+        foreach (var heart in hearts)
+        {
+            if (heart != null)
+            {
+                heart.enabled = true; // Re-enable all heart images
+            }
+        }
+    }
+
+    private void HideGameOverScreen()
+    {
+        if (gameOverScreen != null)
+        {
+            gameOverScreen.SetActive(false); // Hide Game Over screen
+        }
+    }
+
+    private System.Collections.IEnumerator ResetAfterSceneLoad()
+    {
+        yield return null; // Wait until the scene reloads
+        InitializeGame(); // Reinitialize game state
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ae6d61ac66186f9449ae4c6618db8e14
+guid: 0b5d9e5f244f58948a48215e6d2d9e6b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,61 +108,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: EXIT_0
-      rect:
-        serializedVersion: 2
-        x: 0
-<<<<<<< Updated upstream
-        y: 122
-        width: 100
-        height: 34
-=======
-        y: 118
-        width: 100
-        height: 38
->>>>>>> Stashed changes
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8964ea7a513ef09419836157fbe47ed5
-      internalID: -486952377
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: EXIT_1
-      rect:
-        serializedVersion: 2
-        x: 0
-<<<<<<< Updated upstream
-        y: 39
-        width: 100
-        height: 39
-=======
-        y: 41
-        width: 100
-        height: 37
->>>>>>> Stashed changes
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1971395db7f09964ea656f6b649fcc41
-      internalID: 435341702
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -173,9 +119,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      EXIT_0: -486952377
-      EXIT_1: 435341702
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
