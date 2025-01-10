@@ -12,6 +12,12 @@ public class GameManager : MonoBehaviour
     public Image[] hearts; // Heart UI for lives
     public TextMeshProUGUI scoreText; // Reference to the TextMeshPro text field
     public GameObject gameOverScreen; // Reference to the Game Over UI Canvas
+    public TextMeshProUGUI timerText; // Timer UI Text
+    public GameObject scoreScreen; // Final score screen
+    public TextMeshProUGUI finalScoreText; // Text to display the final score
+
+    public float timerDuration = 60f; // Duration of the timer in seconds
+    private float timer;
 
     private void Awake()
     {
@@ -22,7 +28,6 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-        //DontDestroyOnLoad(gameObject);
         InitializeGame();
     }
 
@@ -30,9 +35,38 @@ public class GameManager : MonoBehaviour
     {
         score = 0;
         lives = hearts.Length; // Reset lives to match the number of hearts
+        timer = timerDuration; // Set the timer
         UpdateScoreUI();
         ResetHearts();
         HideGameOverScreen();
+        HideScoreScreen();
+        UpdateTimerUI();
+    }
+
+    private void Update()
+    {
+        // Decrease the timer
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            UpdateTimerUI();
+
+            if (timer <= 0)
+            {
+                timer = 0; // Ensure it doesn't go below 0
+                ShowScoreScreen();
+            }
+        }
+    }
+
+    private void UpdateTimerUI()
+    {
+        if (timerText != null)
+        {
+            int minutes = Mathf.FloorToInt(timer / 60f);
+            int seconds = Mathf.FloorToInt(timer % 60f);
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
     }
 
     public void AddPoints(int points)
@@ -75,6 +109,30 @@ public class GameManager : MonoBehaviour
             gameOverScreen.SetActive(true); // Show Game Over screen
         }
         Time.timeScale = 0f; // Pause the game
+    }
+
+    private void ShowScoreScreen()
+    {
+        Debug.Log("Time Up! Showing Score Screen.");
+        if (scoreScreen != null)
+        {
+            scoreScreen.SetActive(true); // Show the score screen
+        }
+        Time.timeScale = 0f; // Pause the game
+
+        // Display the final score
+        if (finalScoreText != null)
+        {
+            finalScoreText.text = "Final Score: " + score;
+        }
+    }
+
+    private void HideScoreScreen()
+    {
+        if (scoreScreen != null)
+        {
+            scoreScreen.SetActive(false); // Hide the score screen
+        }
     }
 
     public void RestartGame()
